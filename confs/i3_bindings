@@ -1,0 +1,2 @@
+bindsym $mod+o exec select_env.sh prev
+bindsym $mod+p exec select_env.sh next

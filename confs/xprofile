@@ -1,0 +1,3 @@
+if [ ! -f /tmp/.current_env ]; then
+    echo "host" > /tmp/.current_env
+fi
