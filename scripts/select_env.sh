@@ -27,7 +27,7 @@ fi
 
 echo "${VALUES[$index]}" > /tmp/.current_env
 if [ "${VALUES[$index]}" != "host" ]; then
-  exegol exec -v "${VALUES[$index]}" 'bash -c "compgen -ac"' | grep -Pzo "(?s)Command received.*End of the command" | sed '1d' | sed '$d' | sort -u > /tmp/.current_compgen
+  exegol exec -v "${VALUES[$index]}" 'bash -c "compgen -ac"' | grep -Pzo "(?s)Command received.*End of the command" | sed '1d' | sed '$d' | sort -u > /tmp/.current_compgen
 fi
 
  
