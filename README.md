@@ -4,6 +4,9 @@ i3 &amp; dmenu wrappers for easily managing multiple exegols containers
 # How does it works
 This repo contains a set of wrappers scripts & configuration to select a execution environment (host, or a specific exegol container) through i3 bindings & dmenu.
 
+It will add a list of your running exegol containers in you i3status bar and a terminal & dmenu wrappers to easily spawn a shell or call any bin directly through i3.
+To navigate through your hosts the added i3 bindings are, by default, `$mod+o` and `$mod+p`
+
 # How to install it
 
 You can either install it manually or through the automatic script
@@ -79,3 +82,38 @@ bar {
   status_command i3status_wrapper.sh
 }
 ```
+
+### The dmenu
+
+To select the binaries directly in the exegol containers through dmenu, we will also use a wrapper, the `dmenu_wrapper.sh`.
+In your config you have to replace the call to `dmenu_run` by `dmenu_wrapper.sh`
+
+The default configuration being 
+```
+bindsym $mod+d exec --no-startup-id dmenu_run
+```
+and is replaced by
+```
+bindsym $mod+d exec --no-startup-id dmenu_wrapper.sh
+```
+
+### The new bindings
+
+To select the environment we use the `select_env.sh` script.
+This script is called with the args `prev` or `next` to navigate through the containers & the host.
+When the env is selected, the script will execute a `compgen` on the container to list all the executables and show them through *dmenu*.
+
+By default the new bindings are on `$mod+p` and `$mod+o` but you can choose your own.
+
+Add this to you i3 config
+```
+bindsym $mod+o exec select_env.sh prev
+bindsym $mod+p exec select_env.sh next
+```
+
+
+
+# Known issues
+
+Depending on your installation, sometime `.xprofile` isn't executed. So the `/tmp/.current_env` file will not be created.
+You can instead try the use of `.xinitrc` by adding the same content as `.xprofile` in it.
